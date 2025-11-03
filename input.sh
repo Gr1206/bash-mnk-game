@@ -16,25 +16,56 @@ function handleGameCfg_input(){
 
 	askN
 
-        askK
+        askK $M $N
 }
 
 function askM(){
- 	echo "Insert number of rows"
-        read M
+	
+	inputAsk "Insert number of rows:"
+	M=$Num
 
 }
 
 function askN(){
 
-	echo "Insert number of columns"
-        read N
+	inputAsk "Insert number of columns:"
+      	N=$Num
 
 }
 
-function askK(){
-	echo "Insert number of consecutive pieces to win"
-	read K
+function inputAsk(){
+         validInput=1
+         while [ $validInput -eq 1 ]
+         do
+         	echo $1
+                read Num
+                if [ $Num -lt 15 ] && [ $Num -ge 3 ]  
+                then
+                	validInput=$((validInput - 1))
+		
+		else
+                        echo "Insert a valid number"
+                fi
+ 
+          done
+  }
+
+  function askK(){
+	validInput=1
+	while [ $validInput -eq 1 ]
+	do
+		echo "Insert number of consecutive pieces to win:"
+		read K
+		if [ $K -le 1 ] || [ $K -gt $1 ] || [ $K -gt $2 ]
+		then
+			echo "Insert a valid number for K"	
+		else
+			validInput=$((validInput - 1))
+		fi 
+
+
+ 	done
+
 }
 
 

@@ -1,6 +1,7 @@
 #! /bin/bash
 
 
+
 declare DEFAULT_PIECE="-"
 
 declare P1_PIECE="O"

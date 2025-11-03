@@ -1,5 +1,6 @@
 #! /bin/bash
 
+
 source ./input.sh #enables me to get the variables
 source ./board.sh
 
