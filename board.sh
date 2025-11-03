@@ -3,7 +3,7 @@ source ./pieces.sh
 
 declare -a board
 
-function printBoard() {
+function printBoard() { #1 M 2 N
 	
 	for (( i=0; i < $1 ; i++ ))
 	do 
@@ -30,10 +30,16 @@ function printBoard() {
 
 }
 
-function initBoard() {
+function initBoard() { #1 M; 2 N
 
 	for (( i=0; i < $1 * $2; i++ ))
 	do
 		board[$i]=$DEFAULT_PIECE
 	done
 }
+
+function setPiece() { #Coordinate index
+	$board[$1]=$1
+}
+
+
