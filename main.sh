@@ -3,7 +3,7 @@
 
 source ./input.sh #enables me to get the variables
 source ./board.sh
-
+source ./helpers.sh
 
 
 function main(){
@@ -12,8 +12,11 @@ function main(){
 
 	initBoard "$M" "$N"
 	printBoard "$M" "$N" 
-
-
+	
+	setPiece 0 1
+	printBoard "$M" "$N"
+	getHorizontalLine "$M" "$N" 2
+	getVerticalLine "$M" "$N" 0
 }
 
 main
