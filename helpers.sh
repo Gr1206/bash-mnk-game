@@ -28,13 +28,12 @@ function getVerticalLine() { #1-M 2-N 3-COORDIndex
 
 	#calculate first index
 	local indexCopy=$3 #store the fist index of the line
-	while (( $indexCopy - $2  > 0 ))
+	while (( $indexCopy - $2  >= 0 ))
 	do
 		indexCopy=$(( indexCopy - $2 ))
-		echo $indexCopy
+	
 	done
 	
-
 	count=0 #index counting variable 
 	boardSize=${#board[@]}
 	
@@ -44,22 +43,48 @@ function getVerticalLine() { #1-M 2-N 3-COORDIndex
 		count=$(( count + 1 ))
 		indexCopy=$(( indexCopy + $2 ))
 	done 
-	
-
 }
 
 
 function getDiagonal() { #1-M 2-N 3-COORDIndex
-	#Rules for not checking when coord is right up corner and bot left corner they don t have main diagonal
-	#0XXXX 
-	#1XXXX
-	#2XXXX
 
-	echo "hola"
+	declare -g -a boardDiagLine
+	boardDiagLine=()
+	local indexCopy=$3
+	local boardSize=${#board[@]}	
+	while (( indexCopy - $2 - 1 >= 0 ))	
+	do
+		indexCopy=$(( indexCopy - $2 - 1 ))
+		echo $indexCopy
+	done
+	
+	for (( i=0; indexCopy < boardSize ; i++ ))
+	do
+		boardDiagLine[$i]=${board[$indexCopy]}
+		indexCopy=$(( indexCopy + $2 + 1 ))
+	done
+	
+
 }
 
 function getAntiDiagonal() { #1-M 2-N 3-COORDIndex
-	echo "Ola"
+	declare -g -a boardAntiDiagLine
+	boardAntiDiagLine=()
+	
+	local indexCopy=$3
+	local boardSize=${#board[@]}
+	
+	while (( indexCopy - $2 + 1 > 0 ))
+	do
+		indexCopy=$(( indexCopy - $2 + 1 ))
+	done	
+	
+	for (( i=0; indexCopy < boardSize - 1 && indexCopy >= 0 ; i++ ))
+	do
+		boardAntiDiagLine[$i]=${board[$indexCopy]}
+		indexCopy=$(( indexCopy + $2 - 1 ))
+	done
+	
 }
 
 function checkForWin() { #1-K 2-PlayerNum 3-LineArray 
@@ -87,13 +112,10 @@ function checkForWin() { #1-K 2-PlayerNum 3-LineArray
 			count=0
 		fi
 	done
-	
+		
 	if (( $maxCount >= $K ))
 	then
 		echo "Player $player Won"
 		finishGame=1
 	fi
-	
-
-
 }

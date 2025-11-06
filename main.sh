@@ -13,20 +13,34 @@ function main(){
 	initBoard "$M" "$N"
 	printBoard "$M" "$N" 
 	
-	setPiece 0 1
-	setPiece 1 1
-	setPiece 2 1
-	setPiece 3 1
-	setPiece 6 1
-	printBoard "$M" "$N"
-	getHorizontalLine "$M" "$N" 2
-	getVerticalLine "$M" "$N" 0
+	local player=1
+	finishGame=0
+	while [ $finishGame -eq 0 ]
+	do	
+		askCoordinate "$player" "$M" "$N"
+		setPiece "$index" "$player"
+		local indexCoord=$index
+		printBoard "$M" "$N"
+		getHorizontalLine "$M" "$N" "$indexCoord"
+		getVerticalLine "$M" "$N" "$indexCoord"
+		getDiagonal "$M" "$N" "$indexCoord"
+		getAntiDiagonal "$M" "$N" "$indexCoord"	
+			
 	
-	
-	
-	checkForWin "$K" 1 "${boardVerticalLine[@]}"		
-	checkForWin "$K" 1 "${boardHorizontalLine[@]}"	
+		echo "${boardVerticalLine[@]}"
+		checkForWin "$K" "$player" "${boardHorizontalLine[@]}"		
+		checkForWin "$K" "$player" "${boardVerticalLine[@]}"	
+		checkForWin "$K" "$player" "${boardDiagLine[@]}"
+		checkForWin "$K" "$player" "${boardAntiDiagLine[@]}"
 		
+		if [ $player -eq 1 ]
+		then
+			player=2
+		else
+			player=1
+		
+		fi	
+	done
 }
 
 main

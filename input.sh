@@ -92,6 +92,7 @@ function askCoordinate(){ #1 player 2 M 3 N
 	
 	while [ $validInput -eq 1 ]
 	do 
+		echo "Player $1 Turn"
 		echo "Insert Coordinates to place piece:"
 		read coords
 		len=${#coords[0]} #len of the first string array
