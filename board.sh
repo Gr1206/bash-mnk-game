@@ -39,13 +39,8 @@ function initBoard() { #1 M; 2 N
 }
 
 function setPiece() { #1 Coordinate index; 2 player
-	if [ $2 -eq 1 ]
-	then
-		board[$1]=$P1_PIECE
 	
-	else
-		board[$1]=$P2_PIECE
-	fi
+	board[$1]=${playerPiece[$2]}
 }
 
 
