@@ -55,7 +55,7 @@ function getDiagonal() { #1-M 2-N 3-COORDIndex
 	while (( indexCopy - $2 - 1 >= 0 ))	
 	do
 		indexCopy=$(( indexCopy - $2 - 1 ))
-		echo $indexCopy
+		
 	done
 	
 	for (( i=0; indexCopy < boardSize ; i++ ))
@@ -74,17 +74,25 @@ function getAntiDiagonal() { #1-M 2-N 3-COORDIndex
 	local indexCopy=$3
 	local boardSize=${#board[@]}
 	
-	while (( indexCopy - $2 + 1 > 0 ))
-	do
-		indexCopy=$(( indexCopy - $2 + 1 ))
-	done	
-	
-	for (( i=0; indexCopy < boardSize - 1 && indexCopy >= 0 ; i++ ))
-	do
-		boardAntiDiagLine[$i]=${board[$indexCopy]}
-		indexCopy=$(( indexCopy + $2 - 1 ))
-	done
-	
+	if (( $indexCopy != boardSize - 1  ))
+	then
+		while (( indexCopy - $2 + 1 > 0 ))
+		do
+			
+			indexCopy=$(( indexCopy - $2 + 1 ))
+		done		
+	fi
+
+	if [ $indexCopy -eq 0 ] || (( $indexCopy == $boardSize - 1 ))
+	then
+		boardAntiDiagLine[0]=${board[$indexCopy]}
+	else
+		for (( i=0; indexCopy < boardSize - 1 && indexCopy >= 0 ; i++ ))
+		do
+			boardAntiDiagLine[$i]=${board[$indexCopy]}
+			indexCopy=$(( indexCopy + $2 - 1 ))
+		done
+	fi
 }
 
 function checkForWin() { #1-K 2-PlayerNum 3-LineArray 

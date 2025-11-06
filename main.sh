@@ -27,7 +27,8 @@ function main(){
 		getAntiDiagonal "$M" "$N" "$indexCoord"	
 			
 	
-		echo "${boardVerticalLine[@]}"
+		echo "${boardDiagLine[@]}"
+		echo "${boardAntiDiagLine[@]}"
 		checkForWin "$K" "$player" "${boardHorizontalLine[@]}"		
 		checkForWin "$K" "$player" "${boardVerticalLine[@]}"	
 		checkForWin "$K" "$player" "${boardDiagLine[@]}"
