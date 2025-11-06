@@ -52,18 +52,27 @@ function getDiagonal() { #1-M 2-N 3-COORDIndex
 	boardDiagLine=()
 	local indexCopy=$3
 	local boardSize=${#board[@]}	
-	while (( indexCopy - $2 - 1 >= 0 ))	
-	do
-		indexCopy=$(( indexCopy - $2 - 1 ))
+	
+	row=$(( indexCopy / $2 ))
+	col=$(( indexCopy % $2 ))
+	
+	if (( ($row == 0  &&  $col == $2 - 1) || ($row == $1 - 1 &&  $col == 0) ))  
+	then
+		boardDiagLine[0]=${board[$indexCopy]}
+	else
+		while (( indexCopy - $2 - 1 >= 0 ))	
+		do
+			indexCopy=$(( indexCopy - $2 - 1 ))
 		
-	done
+		done
 	
-	for (( i=0; indexCopy < boardSize ; i++ ))
-	do
-		boardDiagLine[$i]=${board[$indexCopy]}
-		indexCopy=$(( indexCopy + $2 + 1 ))
-	done
-	
+		 
+		for (( i=0; indexCopy < boardSize ; i++ ))
+		do
+			boardDiagLine[$i]=${board[$indexCopy]}
+			indexCopy=$(( indexCopy + $2 + 1 ))
+		done
+	fi
 
 }
 
